@@ -18,21 +18,11 @@ public class World {
     static void change(String[] args, Direction[] dirs){
         for (int i=0; i<args.length; i++){
             switch (args[i]){
-                case "f":
-                    dirs[i] = Direction.FORWARD;
-                    break;
-                case "b":
-                    dirs[i] = Direction.BACKWARD;
-                    break;
-                case "l":
-                    dirs[i] = Direction.LEFT;
-                    break;
-                case "r":
-                    dirs[i] = Direction.RIGHT;
-                    break;
-                default:
-                    dirs[i] = Direction.NONE;
-                    break;
+                case "f" -> dirs[i] = Direction.FORWARD;
+                case "b" -> dirs[i] = Direction.BACKWARD;
+                case "l" -> dirs[i] = Direction.LEFT;
+                case "r" -> dirs[i] = Direction.RIGHT;
+                default -> dirs[i] = Direction.NONE;
             }
         }
     }
