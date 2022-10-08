@@ -1,7 +1,5 @@
 package agh.ics.oop;
 
-import java.sql.SQLOutput;
-
 public class World {
 
     /*
@@ -17,49 +15,51 @@ public class World {
     */
 
 
-    static void run(String[] moves){
-        for (int i=0; i<moves.length; i++){
-            switch (moves[i]) {
+    static void change(String[] args, Direction[] dirs){
+        for (int i=0; i<args.length; i++){
+            switch (args[i]){
                 case "f":
-                    System.out.println("Animal is moving forwards");
+                    dirs[i] = Direction.FORWARD;
                     break;
                 case "b":
-                    System.out.println("Animal is moving backwards");
+                    dirs[i] = Direction.BACKWARD;
                     break;
                 case "l":
-                    System.out.println("Animal is turning left");
+                    dirs[i] = Direction.LEFT;
                     break;
                 case "r":
-                    System.out.println("Animal is turning right");
+                    dirs[i] = Direction.RIGHT;
                     break;
                 default:
-                    continue;
+                    dirs[i] = Direction.NONE;
+                    break;
             }
         }
     }
 
-    /*
-    static void run(Direction[] arr){
+
+     static void run(Direction[] arr){
         for (Direction dir : arr){
             switch(dir){
                 case FORWARD -> System.out.println("Animal is moving forward");
                 case LEFT -> System.out.println("Animal is moving left");
                 case RIGHT -> System.out.println("Animal is moving right");
                 case BACKWARD -> System.out.println("Animal is moving backward");
+                case NONE -> System.out.print("");
             };
         }
     }
-    */
+
 
     public static void main(String[] args){
         //String[] arr = {"f", "f", "b", "s", "r", "l"};
 
-        //Direction[] arr = {Direction.LEFT, Direction.RIGHT, Direction.FORWARD, Direction.BACKWARD};
+        Direction[] arr = new Direction[args.length];
 
         System.out.println("System started");
 
-        //run(arr);
-        run(args);
+        change(args, arr);
+        run(arr);
 
         System.out.println("System stopped working");
     }
