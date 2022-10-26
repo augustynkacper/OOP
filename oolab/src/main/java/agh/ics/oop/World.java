@@ -1,19 +1,8 @@
 package agh.ics.oop;
 
+import java.util.Arrays;
+
 public class World {
-
-    /*
-    static void run(String[] arr){
-        System.out.println("Animal moving forward");
-
-        if (arr.length == 0) return;
-
-        for(int i=0; i<arr.length-1; i++)
-            System.out.print(arr[i] + ", ");
-        System.out.print(arr[arr.length-1]+"\n");
-    }
-    */
-
 
     static void change(String[] args, Direction[] dirs){
         for (int i=0; i<args.length; i++){
@@ -62,6 +51,19 @@ public class World {
         System.out.println(position1.add(position2));
 
         System.out.println(MapDirection.NORTH.previous());
+
+        System.out.println("==============");
+
+        // LAB 3
+        Animal an = new Animal();
+
+
+        MoveDirection[] moves = OptionsParser.parse(args);
+        for (MoveDirection move : moves){
+            an.move(move);
+            System.out.println(an);
+        }
+
 
     }
 

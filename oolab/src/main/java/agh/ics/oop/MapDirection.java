@@ -8,7 +8,7 @@ enum MapDirection {
             case EAST -> "Wschód";
             case NORTH -> "Północ";
             case WEST -> "Zachód";
-            case SOUTH -> "Wschód";
+            case SOUTH -> "Południe";
         };
     }
 
