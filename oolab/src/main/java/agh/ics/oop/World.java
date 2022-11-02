@@ -1,19 +1,8 @@
 package agh.ics.oop;
 
+import java.util.Arrays;
+
 public class World {
-
-    /*
-    static void run(String[] arr){
-        System.out.println("Animal moving forward");
-
-        if (arr.length == 0) return;
-
-        for(int i=0; i<arr.length-1; i++)
-            System.out.print(arr[i] + ", ");
-        System.out.print(arr[arr.length-1]+"\n");
-    }
-    */
-
 
     static void change(String[] args, Direction[] dirs){
         for (int i=0; i<args.length; i++){
@@ -42,26 +31,20 @@ public class World {
 
 
     public static void main(String[] args){
-        //String[] arr = {"f", "f", "b", "s", "r", "l"};
 
-        Direction[] arr = new Direction[args.length];
+        MoveDirection[] directions = new OptionsParser().parse(args);
 
-        System.out.println("System started");
-
-        change(args, arr);
-        run(arr);
-
-        System.out.println("System stopped working");
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(1,1), new Vector2d(3,2), new Vector2d(6,2)  };
+        MapVisualizer visualizer = new MapVisualizer(map);
+        SimulationEngine engine = new SimulationEngine(map, directions, positions);
 
 
-        // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
+        System.out.println(map);
+        engine.run();
 
-        System.out.println(MapDirection.NORTH.previous());
+
+        System.out.println(map);
 
     }
 
