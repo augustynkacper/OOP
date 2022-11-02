@@ -31,39 +31,20 @@ public class World {
 
 
     public static void main(String[] args){
-        //String[] arr = {"f", "f", "b", "s", "r", "l"};
 
-        Direction[] arr = new Direction[args.length];
+        MoveDirection[] directions = new OptionsParser().parse(args);
 
-        System.out.println("System started");
-
-        change(args, arr);
-        run(arr);
-
-        System.out.println("System stopped working");
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(1,1), new Vector2d(3,2), new Vector2d(6,2)  };
+        MapVisualizer visualizer = new MapVisualizer(map);
+        SimulationEngine engine = new SimulationEngine(map, directions, positions);
 
 
-        // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
-
-        System.out.println(MapDirection.NORTH.previous());
-
-        System.out.println("==============");
-
-        // LAB 3
-        Animal an = new Animal();
+        System.out.println(map);
+        engine.run();
 
 
-        MoveDirection[] moves = OptionsParser.parse(args);
-        for (MoveDirection move : moves){
-            an.move(move);
-            System.out.println(an);
-        }
-
+        System.out.println(map);
 
     }
 

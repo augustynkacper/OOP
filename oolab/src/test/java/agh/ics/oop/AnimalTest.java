@@ -26,7 +26,6 @@ public class AnimalTest {
     Animal anMove = new Animal();
     @Test
     public void moveTest(){
-        System.out.println(anMove.getDirection());
         anMove.move(MoveDirection.RIGHT);
         anMove.move(MoveDirection.FORWARD);
         anMove.move(MoveDirection.FORWARD);
@@ -76,12 +75,10 @@ public class AnimalTest {
     public void parseTest() {
         OptionsParser parser = new OptionsParser();
 
-        //entry test
         String[] args1 = {"backward", "f", "asdff", "forward", "r", "asdffds"};
         MoveDirection[] valid_output = {MoveDirection.BACKWARD, MoveDirection.FORWARD,
                 MoveDirection.FORWARD, MoveDirection.RIGHT};
         Assertions.assertArrayEquals(valid_output, parser.parse(args1));
-
 
         String[] args2 = {"f", "b", "forward", "right", "backward", "right", "left"};
         MoveDirection[] valid_output2 = {MoveDirection.FORWARD, MoveDirection.BACKWARD,
@@ -93,6 +90,7 @@ public class AnimalTest {
         MoveDirection[] valid_output3 = {};
         Assertions.assertArrayEquals(valid_output3, parser.parse(args3));
     }
+
 
 
     public void main(String[] args) {
