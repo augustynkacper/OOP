@@ -3,30 +3,21 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RectangularMap implements IWorldMap{
+public class RectangularMap extends AbstractWorldMap{
 
     private final int width;
     private final int height;
     private List<Animal> animals;
-    private final Vector2d leftDownCorner;
-    private final Vector2d rightTopCorner;
     private final MapVisualizer visualizer = new MapVisualizer(this);
 
 
     public RectangularMap(int width, int height){
+        super(0,0,width,height);
         this.width = width;
         this.height = height;
         this.animals = new ArrayList<>();
-        this.leftDownCorner = new Vector2d(0, 0);
-        this.rightTopCorner = new Vector2d(width-1, height-1);
     }
 
-    @Override
-    public boolean canMoveTo(Vector2d newPos){
-        return newPos.follows(this.leftDownCorner) &&
-                newPos.precedes(this.rightTopCorner) &&
-                !isOccupied(newPos);
-    }
 
     @Override
     public boolean place(Animal animal){
@@ -54,7 +45,14 @@ public class RectangularMap implements IWorldMap{
         return null;
     }
 
-    public String toString(){
-        return this.visualizer.draw(this.leftDownCorner, this.rightTopCorner);
+
+    @Override
+    public Vector2d getLowerLeft(){
+        return new Vector2d(0, 0);
+    }
+
+    @Override
+    public Vector2d getUpperRight(){
+        return new Vector2d(this.width, this.height);
     }
 }
