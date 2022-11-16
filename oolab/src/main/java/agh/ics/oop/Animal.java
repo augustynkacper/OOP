@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 
 public class Animal extends AbstractWorldMapElement {
@@ -7,6 +9,7 @@ public class Animal extends AbstractWorldMapElement {
 
     private MapDirection dir;
     private IWorldMap map;
+    private final List<IPositionChangeObserver> observers = new LinkedList<>();
 
     public Animal(IWorldMap map, Vector2d initialPosition, MapDirection initialDirection){
         super(initialPosition);
@@ -43,11 +46,46 @@ public class Animal extends AbstractWorldMapElement {
         return s;
     }
 
+    public void addObserver(IPositionChangeObserver observer){
+        observers.add(observer);
+    }
+
+    public void removeObserver(IPositionChangeObserver observer){
+        observers.remove(observer);
+    }
+
+    private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        for (IPositionChangeObserver observer : observers) {
+            observer.positionChanged(oldPosition, newPosition);
+        }
+    }
 
     public MapDirection getDirection(){
         return dir;
     }
 
+    public void move(MoveDirection direction){
+        Vector2d newPos = new Vector2d(-1,-1);
+
+        switch (direction){
+            case RIGHT -> this.dir = dir.next();
+            case LEFT -> this.dir = dir.previous();
+            case FORWARD ->
+                    newPos = this.position .add(this.dir.toUnitVector());
+            case BACKWARD ->
+                    newPos = this.position .subtract(this.dir.toUnitVector());
+        }
+
+        if (this.map.canMoveTo(newPos) && !newPos.equals(new Vector2d(-1,-1))) {
+
+            for(IPositionChangeObserver observer : observers){
+                observer.positionChanged(this.getPosition(), newPos);
+            }
+            this.position = newPos;
+        }
+
+    }
+    /*
     public void move(MoveDirection direction){
         Vector2d newPos = new Vector2d(-1,-1);
 
@@ -64,6 +102,8 @@ public class Animal extends AbstractWorldMapElement {
             this.position  = newPos;
 
     }
+    */
+
 
 
 }
