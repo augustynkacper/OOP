@@ -1,9 +1,7 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 public abstract  class AbstractWorldMap implements  IWorldMap, IPositionChangeObserver{
 
@@ -44,7 +42,10 @@ public abstract  class AbstractWorldMap implements  IWorldMap, IPositionChangeOb
             this.animals.put(animal.getPosition(), animal);
             animal.addObserver(this);
             return true;
-        } return false;
+        }else if (this.objectAt(animal.getPosition()) instanceof Animal){
+            throw new IllegalArgumentException(animal.getPosition() + " is already taken");
+        }
+        return false;
     }
 
     @Override

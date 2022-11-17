@@ -44,13 +44,21 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Object objectAt(Vector2d pos){
+        if (animals.containsKey(pos)) return getAnimalAt(pos);
+        if (grassPositions.containsKey(pos)) return getGrassAt(pos);
+        return null;
+    }
+
+    /*
+    @Override
+    public Object objectAt(Vector2d pos){
         Animal a = getAnimalAt(pos);
         if (a != null) return a;
         Grass g = getGrassAt(pos);
         if (g!= null) return g;
         return null;
     }
-
+    */
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }

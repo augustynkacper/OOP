@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.RectangularMapTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-11-16T20:08:36" hostname="DESKTOP-OTB7E2E" time="0.039">
+<testsuite name="agh.ics.oop.RectangularMapTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-11-17T07:52:00" hostname="Kacpers-MacBook-Pro.local" time="0.013">
   <properties/>
-  <testcase name="rectTest()" classname="agh.ics.oop.RectangularMapTest" time="0.039"/>
-  <system-out><![CDATA[N
-N
- y\x  0 1 2 3 4 5 6 7 8 910
+  <testcase name="rectTest()" classname="agh.ics.oop.RectangularMapTest" time="0.013"/>
+  <system-out><![CDATA[ y\x  0 1 2 3 4 5 6 7 8 910
   6: -----------------------
   5: | | | |N| | | | | | | |
   4: | | | | | | | | | | | |
