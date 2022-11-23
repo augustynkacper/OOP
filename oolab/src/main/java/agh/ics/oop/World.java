@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
-import java.util.Arrays;
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
 
 public class World {
 
@@ -32,49 +33,22 @@ public class World {
 
     public static void main(String[] args){
 
-/*
-        MoveDirection[] directions = (new OptionsParser()).parse(args);
-
-        IWorldMap map = new RectangularMap(10, 5);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)  };
-        SimulationEngine engine = new SimulationEngine(map, directions, positions);
-
-
-        System.out.println(map);
-        engine.run();
+        try {
+            String[] s = {"f", "f", "b", "r", "l", "l", "f", "f", "f", "f", "l", "f", "f", "f", "r", "f", "f", "f", "f", "f", "f", "f", "f", "f"};
+            MoveDirection[] directions = (new OptionsParser()).parse(s);
+            IWorldMap map = new GrassField(10);
+            Vector2d[] positions = {new Vector2d(3, 4), new Vector2d(8, 8), new Vector2d(9, 3)};
+            IEngine engine = new SimulationEngine(map, directions, positions);
 
 
-        System.out.println(map);
-
-*/
-
-        /*
-        MoveDirection[] directions = (new OptionsParser()).parse(args);
-
-        IWorldMap map = new GrassField(10);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)  };
-        IEngine engine = new SimulationEngine(map, directions, positions);
 
 
-        System.out.println(map);
-        engine.run();
-
-
-        System.out.println(map);*/
-
-        String[] s = {"f", "f", "b",   "r", "l", "l",   "f", "f", "f",   "f", "l", "f",   "f", "f", "r",   "f", "f", "f",   "f", "f", "f",   "f", "f", "f"};
-        MoveDirection[] directions = (new OptionsParser()).parse(s);
-        IWorldMap map = new GrassField(10);
-        Vector2d[] positions = { new Vector2d(3,4), new Vector2d(8,8), new Vector2d(9,3)   };
-        IEngine engine = new SimulationEngine(map, directions, positions);
-
-
-        System.out.println(map);
-        engine.run();
-
-
-        System.out.println(map);
-
+            engine.run();
+            System.out.println(map);
+            Application.launch(App.class, args);
+        }catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
 
     }
 

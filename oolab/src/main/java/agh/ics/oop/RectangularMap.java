@@ -1,13 +1,14 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class RectangularMap extends AbstractWorldMap{
 
     private final int width;
     private final int height;
-    private List<Animal> animals;
+
     private final MapVisualizer visualizer = new MapVisualizer(this);
 
 
@@ -15,33 +16,29 @@ public class RectangularMap extends AbstractWorldMap{
         super(0,0,width,height);
         this.width = width;
         this.height = height;
-        this.animals = new ArrayList<>();
+        this.animals = new LinkedHashMap<>();
     }
 
 
     @Override
     public boolean place(Animal animal){
-        if ( this.canMoveTo(animal.getPosition())) {
-            this.animals.add(animal);
+        if ( !this.isOccupied(animal.getPosition())) {
+            this.animals.put(animal.getPosition(), animal);
+            animal.addObserver(this);
             return true;
-        } return false;
+        }else {
+            throw new IllegalArgumentException(animal.getPosition() + " is already taken");
+        }
+    }
+
+    private Animal getAnimalAt(Vector2d pos){
+        return animals.get(pos);
     }
 
     @Override
-    public boolean isOccupied(Vector2d position){
-        for (Animal animal : this.animals){
-            if (animal.getPosition().equals(position))
-                return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Object objectAt(Vector2d position){
-        for (Animal animal : this.animals){
-            if (animal.getPosition().equals(position))
-                return animal;
-        }
+    public Object objectAt(Vector2d pos){
+        Animal a = getAnimalAt(pos);
+        if (a != null) return a;
         return null;
     }
 
