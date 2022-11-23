@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
-import java.util.Arrays;
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
 
 public class World {
 
@@ -44,11 +45,10 @@ public class World {
 
             engine.run();
             System.out.println(map);
+            Application.launch(App.class, args);
         }catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
-
-
 
     }
 

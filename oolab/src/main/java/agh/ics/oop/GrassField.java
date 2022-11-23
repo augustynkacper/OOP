@@ -13,6 +13,8 @@ public class GrassField extends AbstractWorldMap {
     private int height = Integer.MAX_VALUE;
     private MapVisualizer visualizer = new MapVisualizer(this);
 
+    private MapBoundary mapBoundary = new MapBoundary();
+
 
 
     public GrassField(int n){
@@ -26,12 +28,28 @@ public class GrassField extends AbstractWorldMap {
         HashMap<Vector2d, Grass> positions = new LinkedHashMap<>();
         for (int i=0; i<n; i++){
             Vector2d pos = randomField();
-            while (getGrassAt(pos) != null){
+            while (positions.containsKey(pos)){
                 pos = randomField();
             }
+            this.mapBoundary.addElement(pos);
             positions.put(pos, new Grass(pos));
         }
+        System.out.println(positions);
         return positions;
+    }
+
+    @Override
+    public boolean place(Animal animal){
+        if ( !this.isOccupied(animal.getPosition()) ||
+                this.objectAt(animal.getPosition()) instanceof Grass) {
+            this.animals.put(animal.getPosition(), animal);
+            this.mapBoundary.addElement(animal.getPosition());
+            animal.addObserver(this);
+            return true;
+        }else if (this.objectAt(animal.getPosition()) instanceof Animal){
+            throw new IllegalArgumentException(animal.getPosition() + " is already taken");
+        }
+        return false;
     }
 
     private Grass getGrassAt(Vector2d pos){
@@ -49,16 +67,6 @@ public class GrassField extends AbstractWorldMap {
         return null;
     }
 
-    /*
-    @Override
-    public Object objectAt(Vector2d pos){
-        Animal a = getAnimalAt(pos);
-        if (a != null) return a;
-        Grass g = getGrassAt(pos);
-        if (g!= null) return g;
-        return null;
-    }
-    */
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
@@ -71,27 +79,36 @@ public class GrassField extends AbstractWorldMap {
         return pos;
     }
 
+    public HashMap<Vector2d, Grass> getGrass(){
+        return this.grassPositions;
+    }
+
+    public HashMap<Vector2d, Animal> getAnimals(){
+        return this.animals;
+    }
+
+    public Vector2d[] getObjects(){
+        Vector2d[] res = new Vector2d[animals.size()+grassPositions.size()];
+
+        int i =0;
+        for (Vector2d v : this.animals.keySet()){
+            res[i] = v; i++;
+        }
+
+        for (Vector2d v : this.grassPositions.keySet()){
+            res[i] = v; i++;
+        }
+
+        return res;
+    }
+
     @Override
     public Vector2d getLowerLeft(){
-        Vector2d v = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for (Animal animal : animals.values()) {
-            v = v.lowerLeft(animal.getPosition());
-        }
-        for (Grass grass : grassPositions.values()) {
-            v = v.lowerLeft(grass.getPosition());
-        }
-        return v;
+        return this.mapBoundary.lowerLeft();
     }
     @Override
     public Vector2d getUpperRight(){
-        Vector2d v = new Vector2d(0, 0);
-        for (Animal animal : animals.values()) {
-            v = v.upperRight(animal.getPosition());
-        }
-        for (Grass grass : grassPositions.values()) {
-            v = v.upperRight(grass.getPosition());
-        }
-        return v;
+        return this.mapBoundary.upperRight();
     }
 
 }

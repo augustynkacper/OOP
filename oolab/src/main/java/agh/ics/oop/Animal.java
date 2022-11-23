@@ -36,10 +36,10 @@ public class Animal extends AbstractWorldMapElement {
     public String toString() {
         String s;
         switch(this.dir){
-            case NORTH -> s = "N";
-            case EAST -> s = "E";
-            case SOUTH -> s = "S";
-            case WEST -> s = "W";
+            case NORTH -> s = "^";
+            case EAST -> s = ">";
+            case SOUTH -> s = "v";
+            case WEST -> s = "<";
             default -> s = "";
         }
         return s;
