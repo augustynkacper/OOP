@@ -45,6 +45,7 @@ public class App extends Application implements IAnimalMove {
 
 
             Button runMoves = new Button("Run moves");
+            grid.setHalignment(runMoves, HPos.CENTER);
             grid.getChildren().add(runMoves);
 
             runMoves.setOnAction(ev -> {
@@ -135,5 +136,6 @@ public class App extends Application implements IAnimalMove {
 
         });
     }
+
 
 }

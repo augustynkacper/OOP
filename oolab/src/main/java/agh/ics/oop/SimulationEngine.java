@@ -12,6 +12,8 @@ public class SimulationEngine implements IEngine, Runnable{
     private List<Animal> animals;
     private IAnimalMove observer;
 
+    private int moveDelay = 300;
+
     public SimulationEngine(IWorldMap map, MoveDirection[] moves, Vector2d[] positions){
         this.moves = moves;
         this.map = map;
@@ -45,7 +47,7 @@ public class SimulationEngine implements IEngine, Runnable{
             this.observer.animalMoved();
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(this.moveDelay);
             } catch (InterruptedException exception) {
                 System.out.println("Couldn't continue the thread");
             }
