@@ -34,7 +34,6 @@ public class GrassField extends AbstractWorldMap {
             this.mapBoundary.addElement(pos);
             positions.put(pos, new Grass(pos));
         }
-        System.out.println(positions);
         return positions;
     }
 
@@ -44,10 +43,11 @@ public class GrassField extends AbstractWorldMap {
                 this.objectAt(animal.getPosition()) instanceof Grass) {
             this.animals.put(animal.getPosition(), animal);
             this.mapBoundary.addElement(animal.getPosition());
-            animal.addObserver(this);
+
+            animal.setObserver(this);
             return true;
         }else if (this.objectAt(animal.getPosition()) instanceof Animal){
-            throw new IllegalArgumentException(animal.getPosition() + " is already taken");
+            throw new IllegalArgumentException(animal.getPosition() + " is already occupied");
         }
         return false;
     }

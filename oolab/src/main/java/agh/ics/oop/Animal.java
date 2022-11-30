@@ -8,7 +8,7 @@ public class Animal extends AbstractWorldMapElement {
 
     private MapDirection dir;
     private IWorldMap map;
-    private final List<IPositionChangeObserver> observers = new LinkedList<>();
+    private IPositionChangeObserver observerr;
 
     public Animal(IWorldMap map, Vector2d initialPosition, MapDirection initialDirection){
         super(initialPosition);
@@ -45,19 +45,21 @@ public class Animal extends AbstractWorldMapElement {
         return s;
     }
 
-    public void addObserver(IPositionChangeObserver observer){
-        observers.add(observer);
+    @Override
+    public String getImagePath(){
+        return switch(this.dir){
+            case NORTH ->  "src/main/resources/up.png";
+            case EAST ->  "src/main/resources/right.png";
+            case SOUTH ->  "src/main/resources/down.png";
+            case WEST ->  "src/main/resources/left.png";
+        };
     }
 
-    public void removeObserver(IPositionChangeObserver observer){
-        observers.remove(observer);
+
+    public void setObserver(IPositionChangeObserver observer){
+        this.observerr = observer;
     }
 
-    private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        for (IPositionChangeObserver observer : observers) {
-            observer.positionChanged(oldPosition, newPosition);
-        }
-    }
 
     public MapDirection getDirection(){
         return dir;
@@ -77,31 +79,11 @@ public class Animal extends AbstractWorldMapElement {
 
         if (this.map.canMoveTo(newPos) && !newPos.equals(new Vector2d(-1,-1))) {
 
-            for(IPositionChangeObserver observer : observers){
-                observer.positionChanged(this.getPosition(), newPos);
-            }
+            this.observerr.positionChanged(this.getPosition(), newPos);
             this.position = newPos;
         }
 
     }
-    /*
-    public void move(MoveDirection direction){
-        Vector2d newPos = new Vector2d(-1,-1);
-
-        switch (direction){
-            case RIGHT -> this.dir = dir.next();
-            case LEFT -> this.dir = dir.previous();
-            case FORWARD ->
-                newPos = this.position .add(this.dir.toUnitVector());
-            case BACKWARD ->
-                newPos = this.position .subtract(this.dir.toUnitVector());
-        }
-
-        if (this.map.canMoveTo(newPos) && !newPos.equals(new Vector2d(-1,-1)))
-            this.position  = newPos;
-
-    }
-    */
 
 
 

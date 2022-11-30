@@ -2,7 +2,6 @@ package agh.ics.oop;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.Vector;
 
 public class MapBoundary implements IPositionChangeObserver {
     public SortedSet<Vector2d> sortedX =

@@ -40,7 +40,8 @@ public abstract  class AbstractWorldMap implements  IWorldMap, IPositionChangeOb
         if ( !this.isOccupied(animal.getPosition()) ||
                 this.objectAt(animal.getPosition()) instanceof Grass) {
             this.animals.put(animal.getPosition(), animal);
-            animal.addObserver(this);
+
+            animal.setObserver(this);
             return true;
         }else if (this.objectAt(animal.getPosition()) instanceof Animal){
             throw new IllegalArgumentException(animal.getPosition() + " is already taken");

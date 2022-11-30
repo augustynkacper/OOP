@@ -37,7 +37,7 @@ public class World {
             String[] s = {"f", "f", "b", "r", "l", "l", "f", "f", "f", "f", "l", "f", "f", "f", "r", "f", "f", "f", "f", "f", "f", "f", "f", "f"};
             MoveDirection[] directions = (new OptionsParser()).parse(s);
             IWorldMap map = new GrassField(10);
-            Vector2d[] positions = {new Vector2d(3, 4), new Vector2d(8, 8), new Vector2d(9, 3)};
+            Vector2d[] positions = {new Vector2d(3, 4), new Vector2d(3,4), new Vector2d(9, 3)};
             IEngine engine = new SimulationEngine(map, directions, positions);
 
 

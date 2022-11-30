@@ -24,7 +24,6 @@ public class RectangularMap extends AbstractWorldMap{
     public boolean place(Animal animal){
         if ( !this.isOccupied(animal.getPosition())) {
             this.animals.put(animal.getPosition(), animal);
-            animal.addObserver(this);
             return true;
         }else {
             throw new IllegalArgumentException(animal.getPosition() + " is already taken");
